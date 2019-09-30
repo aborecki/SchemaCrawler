@@ -129,7 +129,17 @@ public final class TypeMap
       // Override and add mappings from the connection
       try
       {
-        final Map<String, Class<?>> typeMap = connection.getTypeMap();
+        Map<String, Class<?>> typeMap = null;
+		try
+		{
+			typeMap=connection.getTypeMap();
+		}
+		catch (Exception e)
+		{
+			LOGGER.log(Level.WARNING,
+                   "Could not obtain data type map from connection",
+                   e);
+		}
         if (typeMap != null && !typeMap.isEmpty())
         {
           sqlTypeMap.putAll(typeMap);

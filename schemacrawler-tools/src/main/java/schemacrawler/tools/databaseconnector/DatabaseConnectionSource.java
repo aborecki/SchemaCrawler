@@ -235,8 +235,18 @@ public final class DatabaseConnectionSource
     try
     {
       final Driver jdbcDriver = getJdbcDriver(connectionUrl);
-      final DriverPropertyInfo[] propertyInfo = jdbcDriver
-        .getPropertyInfo(this.connectionUrl, new Properties());
+	  
+	
+	  
+	  DriverPropertyInfo[]  propertyInfo= new DriverPropertyInfo[0];
+	  
+	  System.out.println(jdbcDriver.getClass().toString());
+	  
+	  if (!(jdbcDriver.getClass().toString().equals("class sun.jdbc.odbc.JdbcOdbcDriver")))
+	  {	
+		propertyInfo = jdbcDriver.getPropertyInfo(this.connectionUrl, new Properties());
+	  }
+	  
       final Map<String, Boolean> jdbcDriverProperties = new HashMap<>();
       for (final DriverPropertyInfo driverPropertyInfo : propertyInfo)
       {
